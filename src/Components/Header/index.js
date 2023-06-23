@@ -1,5 +1,7 @@
+import logo from './logo.jpg'
+
 export default function Header() {
     return (
-        <span>Hello from Header!</span>
+        <img src={logo} alt='logo'></img>
     )
 }
