@@ -1,0 +1,19 @@
+.mainform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+    width: 500px;
+}
+  
+.mainform label {
+    margin-bottom: 10px;
+    padding: 5px 10px;
+}
+
+.mainform input {
+    margin-bottom: 10px;
+    padding: 5px 10px;
+}
