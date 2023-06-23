@@ -4,13 +4,14 @@ import './App.css';
 function App() {
 
   const [availtimes, setAvailtimes] = useState([])
+  const [updatetimes, setUpdatetimes] = useState([])
 
   function initializeTimes() {
     const today = new Date();
 
     fetchAPI(today)
       .then((available_times) => {
-        updateTimes(available_times);
+        updateTimes([...available_times]);
       })
       .catch((_error) => {
         console.error('Error fetching available times at this particular date.');
@@ -29,9 +30,9 @@ function App() {
   }
 
   return (
-    <div className="App">
-      Hello
-    </div>
+    <>
+      <span>Hello!</span>
+    </>
   );
 }
 
