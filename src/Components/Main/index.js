@@ -66,10 +66,12 @@ export default function Main() {
                 <script src="https://raw.githubusercontent.com/Meta-Front-End-Developer-PC/capstone/master/api.js"></script>
             </Helmet>
             <form className='mainform'>
-                <label>What is your name?
+                <label> 
+                    What is your name?
                     <input type='text' value={name} onChange={(e) => setName(e.target.value)}></input>
                 </label>
-                <label>What Date?
+                <label> 
+                    What Date?
                     <input type="date" value={selectedDate.toISOString().split('T')[0]}
                         onChange={handleDateChange} min="2023-01-01"></input>
                 </label>

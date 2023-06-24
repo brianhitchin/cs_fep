@@ -8,9 +8,17 @@
     width: 500px;
 }
   
-.mainform label {
+form label {
     margin-bottom: 10px;
-    padding: 5px 10px;
+    margin-right: 5px;
+}
+
+label input {
+    margin-left: 5px;
+}
+
+label select {
+    margin-left: 5px;
 }
 
 .mainform input {

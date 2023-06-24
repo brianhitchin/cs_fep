@@ -10,6 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: linear-gradient(110deg, #6f6d00 60%, #004a06 60%);
 }
 
 code {
