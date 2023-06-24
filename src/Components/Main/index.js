@@ -6,43 +6,58 @@ export default function Main() {
 
     const [name, setName] = useState('')
     const [date, setDate] = useState('')
-    const [time, setTime] = useState('2023-07-22')
+    const [times, setTimes] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [guests, setGuests] = useState(0)
-    const [availtimes, setAvailtimes] = useState(["17", "18", "19", "20", "21", "22"])
-    const [updateTimes, setUpdatetimes] = useState([])
 
-    /*
-    function initializeTimes() {
-        const today = new Date();
-
-        fetchAPI(today)
-            .then((available_times) => {
-                setAvailtimes([...available_times]);
-            })
-            .catch((_error) => {
-                console.error('Error fetching available times at this particular date.');
-            });
+    const seededRandom = function (seed) {
+        var m = 2**35 - 31;
+        var a = 185852;
+        var s = seed % m;
+        return function () {
+            return (s = s * a % m) / m;
+        };
     }
+    
+    const fetchAPI = function(date) {
+        let result = [];
+        let random = seededRandom(date.getDate());
+    
+        for(let i = 17; i <= 23; i++) {
+            if(random() < 0.5) {
+                result.push(i + ':00');
+            }
+            if(random() < 0.5) {
+                result.push(i + ':30');
+            }
+        }
+        return result;
+    };
+    
+    const submitAPI = function(formData) {
+        return true;
+    };
 
-    function updateTimes(selectedDate) {
-        fetchAPI(selectedDate)
-            .then((times) => {
-                setUpdatetimes([...times])
-            })
-            .catch((_error) => {
-                console.error('Error updating available times at this particular date.');
-            });
-    }
-    */
+    const fetchAvailableTimes = async (date) => {
+        try {
+            const response = await fetchAPI(date);
+            setTimes(response);
+        } catch (error) {
+            console.error('Error fetching available times:', error);
+        }
+    };
+
+    const handleDateChange = (event) => {
+        const selectedDate = new Date(event.target.value);
+        setSelectedDate(selectedDate);
+    };
+
+    useEffect(() => {
+        fetchAvailableTimes(selectedDate);
+    }, [selectedDate]);
 
     function handler(e) {
         e.preventDefault();
-        console.log(name, date, time, guests)
-    }
-
-    function parser(e) {
-        const num = Number(e) - 12
-        return `${num}:00PM`
     }
 
     return (
@@ -50,29 +65,29 @@ export default function Main() {
             <Helmet>
                 <script src="https://raw.githubusercontent.com/Meta-Front-End-Developer-PC/capstone/master/api.js"></script>
             </Helmet>
-            Hello from Main!
             <form className='mainform'>
                 <label>What is your name?
                     <input type='text' value={name} onChange={(e) => setName(e.target.value)}></input>
                 </label>
-                <label>What time?
-                    <input type="date" value={date} onChange={(e) => setDate(e.target.value)} min="2023-01-01"></input>
+                <label>What Date?
+                    <input type="date" value={selectedDate.toISOString().split('T')[0]}
+                        onChange={handleDateChange} min="2023-01-01"></input>
                 </label>
                 <label>
                     What time?
-                    <select value={time} onChange={(e) => setTime(e.target.value)}>
-                        {availtimes.map((el) => {
-                            return (
-                                <option value={el}>{parser(el)}</option>
-                            )
-                        })}
+                    <select id="timeSelect">
+                        {times.map((time) => (
+                            <option key={time} value={time}>
+                                {time}
+                            </option>
+                        ))}
                     </select>
                 </label>
                 <label>
                     How many people? (Minimum of 1, maximum of 30)
                     <input type="number" min="1" max="30" value={guests} onChange={(e) => setGuests(e.target.value)}></input>
                 </label>
-                <input type="submit" value="Reserve" onClick={handler}/>
+                <input type="submit" value="Reserve" onClick={handler} />
             </form>
         </div>
     )
