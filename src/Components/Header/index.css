@@ -15,4 +15,5 @@ div img {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     display: block;
     text-align: center;
+    background-color: white;
 }

@@ -1,3 +1,7 @@
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   width: 100%;
@@ -10,7 +14,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(110deg, #6f6d00 60%, #004a06 60%);
+  background: linear-gradient(110deg, #a3a000 60%, #004a06 60%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 code {

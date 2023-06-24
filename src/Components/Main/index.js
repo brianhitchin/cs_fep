@@ -89,7 +89,7 @@ export default function Main() {
                     How many people? (Minimum of 1, maximum of 30)
                     <input type="number" min="1" max="30" value={guests} onChange={(e) => setGuests(e.target.value)}></input>
                 </label>
-                <input type="submit" value="Reserve" onClick={handler} />
+                <input type="submit" value="Reserve" className='bme' onClick={handler} />
             </form>
         </div>
     )

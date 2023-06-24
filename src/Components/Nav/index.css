@@ -8,10 +8,15 @@
 
 .ninner {
     color: black;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-weight: bold;
 }
 
 .ninner:hover {
     color: blue;
     cursor: pointer;
     text-decoration: wavy;
+    font-weight: bold;
 }
+
