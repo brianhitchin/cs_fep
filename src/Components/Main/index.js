@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router';
 import './index.css'
 
 export default function Main() {
@@ -9,32 +10,33 @@ export default function Main() {
     const [times, setTimes] = useState([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [guests, setGuests] = useState(0)
+    const navigate = useNavigate()
 
     const seededRandom = function (seed) {
-        var m = 2**35 - 31;
+        var m = 2 ** 35 - 31;
         var a = 185852;
         var s = seed % m;
         return function () {
             return (s = s * a % m) / m;
         };
     }
-    
-    const fetchAPI = function(date) {
+
+    const fetchAPI = function (date) {
         let result = [];
         let random = seededRandom(date.getDate());
-    
-        for(let i = 17; i <= 23; i++) {
-            if(random() < 0.5) {
+
+        for (let i = 17; i <= 23; i++) {
+            if (random() < 0.5) {
                 result.push(i + ':00');
             }
-            if(random() < 0.5) {
+            if (random() < 0.5) {
                 result.push(i + ':30');
             }
         }
         return result;
     };
-    
-    const submitAPI = function(formData) {
+
+    const submitAPI = function (formData) {
         return true;
     };
 
@@ -56,8 +58,17 @@ export default function Main() {
         fetchAvailableTimes(selectedDate);
     }, [selectedDate]);
 
+    function submitForm(data) {
+        let resp = submitAPI(data)
+
+        if (resp) {
+            navigate('/confirmed')
+        }
+    }
+
     function handler(e) {
         e.preventDefault();
+        submitForm(e.target)
     }
 
     return (
@@ -66,11 +77,11 @@ export default function Main() {
                 <script src="https://raw.githubusercontent.com/Meta-Front-End-Developer-PC/capstone/master/api.js"></script>
             </Helmet>
             <form className='mainform'>
-                <label> 
+                <label>
                     What is your name?
                     <input type='text' value={name} onChange={(e) => setName(e.target.value)}></input>
                 </label>
-                <label> 
+                <label>
                     What Date?
                     <input type="date" value={selectedDate.toISOString().split('T')[0]}
                         onChange={handleDateChange} min="2023-01-01"></input>
