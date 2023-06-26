@@ -8,8 +8,10 @@ export default function Main() {
     const [name, setName] = useState('')
     const [date, setDate] = useState('')
     const [times, setTimes] = useState([]);
+    const [desiredtime, setDesiredtime] = useState('')
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [guests, setGuests] = useState(0)
+    const [errors, setErrors] = useState([])
     const navigate = useNavigate()
 
     const seededRandom = function (seed) {
@@ -58,6 +60,7 @@ export default function Main() {
         fetchAvailableTimes(selectedDate);
     }, [selectedDate]);
 
+
     function submitForm(data) {
         let resp = submitAPI(data)
 
@@ -68,7 +71,15 @@ export default function Main() {
 
     function handler(e) {
         e.preventDefault();
-        submitForm(e.target)
+        setErrors([])
+        if (!date) { setErrors(["Please select a date."]) }
+        if (!guests) { setErrors([...errors, "Please indicate the size of your party."]) }
+        if (!desiredtime) { setErrors([...errors, "Please select a time."]) }
+        if (errors.length == 0) {
+            const newTimes = times.filter(el => el !== desiredtime)
+            setTimes([...newTimes])
+            submitForm(e.target)
+        }
     }
 
     return (
@@ -76,6 +87,13 @@ export default function Main() {
             <Helmet>
                 <script src="https://raw.githubusercontent.com/Meta-Front-End-Developer-PC/capstone/master/api.js"></script>
             </Helmet>
+            <ul>
+                {errors.length && errors.map((error, index) => {
+                    return (
+                        <li key={index}>{error}</li>
+                    )
+                })}
+            </ul>
             <form className='mainform'>
                 <label>
                     What is your name?
@@ -88,7 +106,7 @@ export default function Main() {
                 </label>
                 <label>
                     What time?
-                    <select id="timeSelect">
+                    <select id="timeSelect" onChange={(e) => setDesiredtime(e.target.value)}>
                         {times.map((time) => (
                             <option key={time} value={time}>
                                 {time}

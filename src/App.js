@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
 import './App.css';
 import Nav from './components/Nav'
 import Header from './components/Header'
@@ -8,12 +9,19 @@ import ConfirmedBooking from './components/ConfirmedBooking';
 
 function App() {
 
+  useEffect(() => {
+    document.title = "Little Lemon"
+  }, [])
+
   return (
     <>
       <Routes>
 
         <Route exact path="/confirmed" element={
-          <ConfirmedBooking />
+          <>
+            <Header />
+            <ConfirmedBooking />
+          </>
         } />
 
         <Route path="/" element={
@@ -24,7 +32,7 @@ function App() {
             <Footer />
           </>
         } />
-        
+
       </Routes>
     </>
 
