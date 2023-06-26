@@ -52,8 +52,8 @@ export default function Main() {
     };
 
     const handleDateChange = (event) => {
-        const selectedDate = new Date(event.target.value);
-        setSelectedDate(selectedDate);
+        const newDate = new Date(event.target.value);
+        setSelectedDate(newDate);
     };
 
     useEffect(() => {
@@ -69,17 +69,32 @@ export default function Main() {
         }
     }
 
-    function handler(e) {
+    const handler = (e) => {
+
         e.preventDefault();
         setErrors([])
-        if (!date) { setErrors(["Please select a date."]) }
-        if (!guests) { setErrors([...errors, "Please indicate the size of your party."]) }
-        if (!desiredtime) { setErrors([...errors, "Please select a time."]) }
-        if (errors.length == 0) {
+        let errorz = []
+
+        if (!name.length) { 
+            errorz.push("Please indicate your name.") 
+        }
+
+        if (!guests) {
+            errorz.push("Please indicate the size of your party.") 
+        }
+
+        if (!desiredtime.length) { 
+            errorz.push("Please select a time.") 
+        }
+
+        setErrors(errorz)
+
+        if (errorz.length == 0) {
             const newTimes = times.filter(el => el !== desiredtime)
             setTimes([...newTimes])
             submitForm(e.target)
         }
+        
     }
 
     return (
@@ -87,14 +102,14 @@ export default function Main() {
             <Helmet>
                 <script src="https://raw.githubusercontent.com/Meta-Front-End-Developer-PC/capstone/master/api.js"></script>
             </Helmet>
+            <form className='mainform'>
             <ul>
-                {errors.length && errors.map((error, index) => {
+                {errors.length > 1 && errors.map((error, index) => {
                     return (
                         <li key={index}>{error}</li>
                     )
                 })}
             </ul>
-            <form className='mainform'>
                 <label>
                     What is your name?
                     <input type='text' value={name} onChange={(e) => setName(e.target.value)}></input>
