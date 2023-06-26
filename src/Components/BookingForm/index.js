@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router';
 import './index.css'
 
-export default function Main() {
+export default function BookingForm() {
 
     const [name, setName] = useState('')
     const [date, setDate] = useState('')

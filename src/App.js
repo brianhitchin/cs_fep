@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import './App.css';
 import Nav from './components/Nav'
 import Header from './components/Header'
-import Main from './components/Main'
+import BookingForm from './components/BookingForm'
 import Footer from './components/Footer'
 import ConfirmedBooking from './components/ConfirmedBooking';
 
@@ -28,7 +28,7 @@ function App() {
           <>
             <Header />
             <Nav />
-            <Main />
+            <BookingForm />
             <Footer />
           </>
         } />
