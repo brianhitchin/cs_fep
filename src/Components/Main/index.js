@@ -110,16 +110,16 @@ export default function Main() {
                     )
                 })}
             </ul>
-                <label>
+                <label htmlFor="nameInput">
                     What is your name?
                     <input type='text' value={name} onChange={(e) => setName(e.target.value)}></input>
                 </label>
-                <label>
+                <label htmlFor="dateInput">
                     What Date?
                     <input type="date" value={selectedDate.toISOString().split('T')[0]}
                         onChange={handleDateChange} min="2023-01-01"></input>
                 </label>
-                <label>
+                <label htmlFor="timeSelect">
                     What time?
                     <select id="timeSelect" onChange={(e) => setDesiredtime(e.target.value)}>
                         {times.map((time) => (
@@ -129,11 +129,11 @@ export default function Main() {
                         ))}
                     </select>
                 </label>
-                <label>
+                <label htmlFor="guestsInput">
                     How many people? (Minimum of 1, maximum of 30)
                     <input type="number" min="1" max="30" value={guests} onChange={(e) => setGuests(e.target.value)}></input>
                 </label>
-                <input type="submit" value="Reserve" className='bme' onClick={handler} />
+                <input type="submit" value="Reserve" className='bme' aria-label="On Click" onClick={handler} />
             </form>
         </div>
     )
