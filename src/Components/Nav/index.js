@@ -4,10 +4,11 @@ export default function Nav() {
     return (
         <>
             <nav className="nmain">
-                <a href="#" className="ninner">Home</a>
-                <a href="#" className="ninner">Menu</a>
-                <a href="#" className="ninner">About us</a>
-                <a href="#" className="ninner">Contact us</a>
+                <ul>
+                    <li><a href="/" className="ninner">Home</a></li>
+                    <li><a href="/reserve" className="ninner">Reserve</a></li>
+                    <li><a href="#" className="ninner">About us</a></li>
+                </ul>
             </nav>
         </>
     )

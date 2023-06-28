@@ -1,11 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import './App.css';
-import Nav from './components/Nav'
-import Header from './components/Header'
-import BookingForm from './components/BookingForm'
-import Footer from './components/Footer'
-import ConfirmedBooking from './components/ConfirmedBooking';
+import HomePage from './components/HomePage';
+import BookingPage from './components/BookingPage';
 
 function App() {
 
@@ -16,23 +13,8 @@ function App() {
   return (
     <>
       <Routes>
-
-        <Route exact path="/confirmed" element={
-          <>
-            <Header />
-            <ConfirmedBooking />
-          </>
-        } />
-
-        <Route path="/" element={
-          <>
-            <Header />
-            <Nav />
-            <BookingForm />
-            <Footer />
-          </>
-        } />
-
+        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/booking" element={<BookingPage />}></Route>
       </Routes>
     </>
 
