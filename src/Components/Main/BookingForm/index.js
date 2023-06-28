@@ -99,9 +99,6 @@ export default function BookingForm() {
 
     return (
         <div>
-            <Helmet>
-                <script src="https://raw.githubusercontent.com/Meta-Front-End-Developer-PC/capstone/master/api.js"></script>
-            </Helmet>
             <form className='mainform'>
             <ul>
                 {errors.length > 1 && errors.map((error, index) => {
