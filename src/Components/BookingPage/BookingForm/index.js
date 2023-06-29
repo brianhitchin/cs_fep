@@ -1,45 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router';
 import './index.css'
 
-const Main = () => {
-    const [date, setDate] = useState('');
-    
-    const initializeTimes = () => {
-      return ['10:00 PM', '10:30 PM', '11:00 PM'];
-    };
-  
-    const updateTimes = (date) => {
-      return initializeTimes();
-    };
-  
-    const [availableTimes, dispatch] = useReducer(
-      (state, action) => {
-        switch (action.type) {
-          case 'UPDATE_TIMES':
-            return updateTimes(action.date);
-          default:
-            return state;
-        }
-      },
-      initializeTimes()
-    );
-  
-    const handleDateChange = (event) => {
-      const newDate = event.target.value;
-      setDate(newDate);
-      dispatch({ type: 'UPDATE_TIMES', date: newDate });
-    };
-  
-    return (
-      <div>
-        <BookingForm
-          selectedDate={selectedDate}
-          availableTimes={availableTimes}
-          onDateChange={handleDateChange}
-        />
-      </div>
-    );
-  };
-  
+const BookingForm = () => {
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [guests, setGuests] = useState(0);
+  const [occassion, setOccasion] = useState('');
+  const [availableTimes, setAvaileableTimes] = useState(['17:00', '18:00', '19:00', '20:00', '21:00'])
+
+  return (
+    <form>
+      <label>Choose date:
+        <input type="date" value={date} onChange={(e) => setDate(e.target.value)}></input>
+      </label>
+      <label>Choose time:
+        <select value={time} onChange={(e) => setTime(e.target.value)}>
+          {availableTimes.map(el => {
+            return (
+              <option value={el}>{el}</option>
+            )
+          })}
+        </select>
+      </label>
+      <label>Number of guests (min 1, max 20):
+        <input type="number" value={guests} onChange={(e) => setGuests(e.target.value)} placeholder='1' min="1" max="20"></input>
+      </label>
+      <label>What's the occassion?:
+        <select value={occassion} onChange={(e) => setOccasion(e.target.value)}>
+          <option value={"Birthday"}>Birthday</option>
+          <option value={"Anniversary"}>Anniversary</option>
+        </select>
+      </label>
+      <input type="submit" value="Make your reservation" />
+    </form>
+  );
+};
+
+export default BookingForm;
