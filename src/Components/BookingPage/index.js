@@ -1,6 +1,10 @@
 import React, { useReducer, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router';
+import FooterFunc from '../Footer'
+import Header from '../Header';
+import NavBar from '../Nav'
 import BookingForm from './BookingForm'
+import './index.css'
 
 const BookingPage = () => {
 
@@ -60,31 +64,24 @@ const BookingPage = () => {
 
     const [availableTimes, timesDispatcher] = useReducer(availableTimesReducer, initializeTimes())
 
-    const submitter = (e) => {
-
-        e.preventDefault();
-        timesDispatcher({ type: 'UPDATE', date: e.target.value })
-        if (submitAPI({ date, time, guests, occassion })) {
-            navigate('/confirmed')
-        }
-    }
-
     useEffect(() => {
 
         timesDispatcher({ type: 'UPDATE', date });
 
     }, [date]);
 
-
-    const isValid = () => {
-        return (date !== '' && time !== '' && guests && occassion !== '')
-    }
-
     return (
-        <main>
+        <main className='hpmain'>
+            <Header />
+            <NavBar />
+            <section className='hpsection'>
+                <h2>Reservation</h2>
+                <p style={{width: '400px', textAlign: 'center'}}>Check available times, dine at your leisure!</p>
+            </section>
             <BookingForm availableTimes={availableTimes} date={date} setDate={setDate}
                 time={time} setTime={setTime} guests={guests} setGuests={setGuests} occassion={occassion} setOccasion={setOccasion}
-                submitter={submitter} isValid={isValid}/>
+                submitAPI={submitAPI} timesDispatcher={timesDispatcher}/>
+            <FooterFunc />
         </main>
     )
 }

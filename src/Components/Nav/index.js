@@ -6,7 +6,7 @@ export default function Navbar() {
             <nav className="nmain">
                 <ul>
                     <li><a href="/" className="ninner">Home</a></li>
-                    <li><a href="/reserve" className="ninner">Reserve</a></li>
+                    <li><a href="/booking" className="ninner">Reserve</a></li>
                     <li><a href="#" className="ninner">About us</a></li>
                 </ul>
             </nav>
