@@ -4,17 +4,22 @@
     justify-content: center;
     margin-bottom: 10px;
     margin-top: 10px;
+    width: 100%;
 }
 
 .nmain ul {
     list-style-type: none;
+    display: inline-flex;
+    flex-direction: row;
+    padding-left: 0px;
 }
 
 .ninner {
     color: black;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .ninner:hover {

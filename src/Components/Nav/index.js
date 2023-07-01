@@ -1,6 +1,6 @@
 import './index.css'
 
-export default function Nav() {
+export default function Navbar() {
     return (
         <>
             <nav className="nmain">
