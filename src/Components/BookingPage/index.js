@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer, useState, useEffect } from 'react'
 import BookingForm from './BookingForm'
 
 const BookingPage = () => {
@@ -8,12 +8,43 @@ const BookingPage = () => {
     const [guests, setGuests] = useState(0);
     const [occassion, setOccasion] = useState('');
 
-    const updateTimes = (date) => {
-        // add logic to change availableTimes
-        return initializeTimes();
-    };
+    function randomint() {
+        return Math.floor(Math.random() * 31)
+    }
 
-    const initializeTimes = () => { return ['17:00', '18:00', '19:00', '20:00', '21:00'] }
+    const seededRandom = function (seed) {
+        var m = 2**35 - 31;
+        var a = 185852;
+        var s = seed % m;
+        return function () {
+            return (s = s * a % m) / m;
+        };
+    }
+    
+    const fetchAPI = function(date) {
+        let result = [];
+        let random = seededRandom(randomint());
+    
+        for(let i = 17; i <= 23; i++) {
+            if(random() < 0.5) {
+                result.push(i + ':00');
+            }
+            if(random() < 0.5) {
+                result.push(i + ':30');
+            }
+        }
+        return result;
+    };
+    
+    const submitAPI = function(formData) {
+        return true;
+    };
+    
+    const initializeTimes = () => { return fetchAPI(new Date()) }
+    
+    const updateTimes = (date) => {
+        return fetchAPI(date)
+    };
 
     const availableTimesReducer = (state = initializeTimes(), action) => {
         switch (action.type) {
@@ -30,6 +61,12 @@ const BookingPage = () => {
         timesDispatcher({ type: 'UPDATE', date: e.target.value })
     }
 
+    useEffect(() => {
+
+        timesDispatcher({ type: 'UPDATE', date });
+
+      }, [date]);
+
     return (
         <main>
             <BookingForm availableTimes={availableTimes} date={date} setDate={setDate} 
@@ -38,4 +75,5 @@ const BookingPage = () => {
         </main>
     )
 }
+
 export default BookingPage;
