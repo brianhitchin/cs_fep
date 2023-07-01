@@ -1,4 +1,5 @@
 import React, { useReducer, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router';
 import BookingForm from './BookingForm'
 
 const BookingPage = () => {
@@ -7,6 +8,8 @@ const BookingPage = () => {
     const [time, setTime] = useState('');
     const [guests, setGuests] = useState(0);
     const [occassion, setOccasion] = useState('');
+
+    const navigate = useNavigate();
 
     function randomint() {
         return Math.floor(Math.random() * 31)
@@ -58,11 +61,16 @@ const BookingPage = () => {
     const [availableTimes, timesDispatcher] = useReducer(availableTimesReducer, initializeTimes())
 
     const submitter = (e) => {
+
+        e.preventDefault();
         timesDispatcher({ type: 'UPDATE', date: e.target.value })
+        if (submitAPI({ date, time, guests, occassion })) {
+            navigate('/confirmed')
+        }
     }
 
     useEffect(() => {
-
+        
         timesDispatcher({ type: 'UPDATE', date });
 
       }, [date]);
