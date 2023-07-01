@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
 import './index.css'
 
-const BookingForm = () => {
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [guests, setGuests] = useState(0);
-  const [occassion, setOccasion] = useState('');
-  const [availableTimes, setAvaileableTimes] = useState(['17:00', '18:00', '19:00', '20:00', '21:00'])
-
+const BookingForm = ({ availableTimes, date, setDate, time, setTime, guests, setGuests, occassion, setOccasion, submitter }) => {
+  
   return (
     <form>
       <label>Choose date:
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)}></input>
       </label>
       <label>Choose time:
-        <select value={time} onChange={(e) => setTime(e.target.value)}>
+        <select value={time} onChange={(e) => setTime(e.target.value)}> 
           {availableTimes.map(el => {
             return (
               <option value={el}>{el}</option>
@@ -32,7 +26,7 @@ const BookingForm = () => {
           <option value={"Anniversary"}>Anniversary</option>
         </select>
       </label>
-      <input type="submit" value="Make your reservation" />
+      <input type="submit" value="Make your reservation" onClick={submitter}/>
     </form>
   );
 };
